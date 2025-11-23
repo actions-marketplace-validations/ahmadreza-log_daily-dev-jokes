@@ -40,101 +40,101 @@ This repository uses GitHub Actions to automatically update the README.md every 
 
 ## 🚀 Setup & Configuration Guide
 
-### روش 1: Fork کردن Repository (پیشنهادی)
+### Method 1: Fork Repository (Recommended)
 
-1. **Fork کردن Repository:**
-   - روی دکمه "Fork" در بالای صفحه کلیک کنید
-   - Repository را به حساب خودتان fork کنید
+1. **Fork the Repository:**
+   - Click the "Fork" button at the top of the page
+   - Fork the repository to your account
 
-2. **Clone کردن Repository:**
+2. **Clone the Repository:**
    ```bash
    git clone https://github.com/YOUR_USERNAME/daily-dev-jokes.git
    cd daily-dev-jokes
    ```
 
-3. **نصب Dependencies:**
+3. **Install Dependencies:**
    ```bash
    npm install
    ```
 
-4. **تست محلی (اختیاری):**
-   - یک GitHub Personal Access Token بسازید از: https://github.com/settings/tokens
-   - دسترسی‌های مورد نیاز: `repo` و `read:org`
-   - یک فایل `.env` در root پروژه بسازید:
+4. **Local Testing (Optional):**
+   - Create a GitHub Personal Access Token from: https://github.com/settings/tokens
+   - Required permissions: `repo` and `read:org`
+   - Create a `.env` file in the project root:
      ```
      GITHUB_TOKEN=your_token_here
      GITHUB_REPOSITORY_OWNER=your_username
      GITHUB_REPOSITORY=your_repo_name
      ```
-   - اجرا کنید:
+   - Run:
      ```bash
      npm run dev
      ```
 
-### روش 2: استفاده در Repository موجود
+### Method 2: Use in Existing Repository
 
-اگر می‌خواهید این قابلیت را به یک repository موجود اضافه کنید:
+If you want to add this functionality to an existing repository:
 
-#### مرحله 1: کپی کردن فایل‌ها
+#### Step 1: Copy Files
 
-1. **کپی کردن فولدر `.github`:**
+1. **Copy the `.github` folder:**
    ```bash
-   # از این repository
+   # From this repository
    cp -r .github/ /path/to/your/repo/
    ```
 
-2. **کپی کردن فولدر `src`:**
+2. **Copy the `src` folder:**
    ```bash
    cp -r src/ /path/to/your/repo/
    ```
 
-3. **کپی کردن فایل‌های root:**
+3. **Copy root files:**
    ```bash
    cp package.json tsconfig.json .gitignore /path/to/your/repo/
    ```
 
-#### مرحله 2: نصب Dependencies
+#### Step 2: Install Dependencies
 
 ```bash
 cd /path/to/your/repo
 npm install
 ```
 
-#### مرحله 3: تنظیم GitHub Actions
+#### Step 3: Configure GitHub Actions
 
-1. **بررسی فایل Workflow:**
-   - فایل `.github/workflows/update-joke.yml` را باز کنید
-   - این فایل به صورت خودکار از environment variables استفاده می‌کند
-   - نیازی به تغییر نیست مگر اینکه بخواهید زمان اجرا را تغییر دهید
+1. **Check the Workflow File:**
+   - Open `.github/workflows/update-joke.yml`
+   - This file automatically uses environment variables
+   - No changes needed unless you want to modify the schedule
 
-2. **تنظیم زمان اجرا (اختیاری):**
+2. **Configure Schedule (Optional):**
    ```yaml
    schedule:
-     # فرمت: دقیقه ساعت روز ماه روز_هفته
-     # مثال: هر روز ساعت 12:00 UTC
+     # Format: minute hour day month day-of-week
+     # Example: Every day at 12:00 UTC
      - cron: '0 12 * * *'
    ```
    
-   مثال‌های دیگر:
-   - هر 6 ساعت: `'0 */6 * * *'`
-   - هر 12 ساعت: `'0 */12 * * *'`
-   - هر هفته: `'0 0 * * 0'` (یکشنبه‌ها)
-   - هر ماه: `'0 0 1 * *'` (اول هر ماه)
+   Other examples:
+   - Every 6 hours: `'0 */6 * * *'`
+   - Every 12 hours: `'0 */12 * * *'`
+   - Weekly: `'0 0 * * 0'` (Sundays)
+   - Monthly: `'0 0 1 * *'` (First of each month)
 
-#### مرحله 4: تنظیم Issue Templates
+#### Step 4: Setup Issue Templates
 
-1. **کپی کردن Issue Templates:**
+1. **Copy Issue Templates:**
    ```bash
    cp -r .github/ISSUE_TEMPLATE/ /path/to/your/repo/.github/
    ```
 
-2. **سفارشی‌سازی Template (اختیاری):**
-   - فایل `.github/ISSUE_TEMPLATE/joke.yml` را باز کنید
-   - می‌توانید فیلدها، زبان‌ها، یا validation ها را تغییر دهید
+2. **Customize Template (Optional):**
+   - Open `.github/ISSUE_TEMPLATE/joke.yml`
+   - You can modify fields, languages, or validations
 
-#### مرحله 5: اضافه کردن Markers به README
+#### Step 5: Add Markers to README
 
-در فایل `README.md` خودتان، بخش زیر را اضافه کنید:
+In your `README.md` file, add the following section:
 
 ```markdown
 ## Today's Joke
@@ -143,41 +143,41 @@ npm install
 <!--END_SECTION:dev-jokes-->
 ```
 
-**مهم:** این markers باید دقیقاً به همین صورت باشند تا script بتواند آن‌ها را پیدا کند.
+**Important:** These markers must be exactly as shown for the script to find them.
 
-#### مرحله 6: فعال‌سازی GitHub Actions
+#### Step 6: Enable GitHub Actions
 
-1. **بررسی Permissions:**
-   - به Settings → Actions → General بروید
-   - مطمئن شوید که "Workflow permissions" روی "Read and write permissions" تنظیم شده باشد
+1. **Check Permissions:**
+   - Go to Settings → Actions → General
+   - Make sure "Workflow permissions" is set to "Read and write permissions"
 
-2. **اجرای دستی (برای تست):**
-   - به تب "Actions" در repository بروید
-   - workflow "Update Daily Joke" را انتخاب کنید
-   - روی "Run workflow" کلیک کنید
-   - اگر همه چیز درست باشد، README به‌روزرسانی می‌شود
+2. **Manual Run (for testing):**
+   - Go to the "Actions" tab in your repository
+   - Select the "Update Daily Joke" workflow
+   - Click "Run workflow"
+   - If everything is correct, the README will be updated
 
-#### مرحله 7: ایجاد اولین Issue
+#### Step 7: Create First Issue
 
-1. به صفحه Issues بروید
-2. "New Issue" را کلیک کنید
-3. Template "🎭 Submit a Joke" را انتخاب کنید
-4. فرم را پر کنید و submit کنید
-5. Issue را close کنید (بعد از close شدن، در لیست جوک‌ها قرار می‌گیرد)
+1. Go to the Issues page
+2. Click "New Issue"
+3. Select the "🎭 Submit a Joke" template
+4. Fill out the form and submit
+5. Close the issue (after closing, it will be eligible for the joke list)
 
-### 🔧 تنظیمات پیشرفته
+### 🔧 Advanced Configuration
 
-#### تغییر Repository Owner/Name
+#### Change Repository Owner/Name
 
-اگر repository name یا owner متفاوت است، می‌توانید در workflow file تغییر دهید:
+If the repository name or owner is different, you can modify it in the workflow file:
 
 ```yaml
 env:
-  GITHUB_REPOSITORY: ${{ github.repository }}  # به صورت خودکار
-  GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}  # به صورت خودکار
+  GITHUB_REPOSITORY: ${{ github.repository }}  # Automatic
+  GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}  # Automatic
 ```
 
-یا اگر می‌خواهید repository دیگری را استفاده کنید:
+Or if you want to use a different repository:
 
 ```yaml
 env:
@@ -185,74 +185,74 @@ env:
   GITHUB_REPOSITORY_OWNER: owner
 ```
 
-#### استفاده از Personal Access Token
+#### Using Personal Access Token
 
-اگر می‌خواهید از repository دیگری استفاده کنید:
+If you want to use a different repository:
 
-1. یک Personal Access Token بسازید
-2. به Settings → Secrets and variables → Actions بروید
-3. یک secret جدید با نام `GITHUB_TOKEN` اضافه کنید
-4. در workflow file:
+1. Create a Personal Access Token
+2. Go to Settings → Secrets and variables → Actions
+3. Add a new secret named `GITHUB_TOKEN`
+4. In the workflow file:
    ```yaml
    env:
      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
    ```
 
-#### تغییر Label
+#### Change Label
 
-اگر می‌خواهید از label دیگری به جای "joke" استفاده کنید:
+If you want to use a different label instead of "joke":
 
-1. در `.github/ISSUE_TEMPLATE/joke.yml`:
+1. In `.github/ISSUE_TEMPLATE/joke.yml`:
    ```yaml
    labels: 
      - "your-custom-label"
    ```
 
-2. در `src/services/github.service.ts`:
+2. In `src/services/github.service.ts`:
    ```typescript
    labels: 'your-custom-label',
    ```
 
-### 🧪 تست کردن
+### 🧪 Testing
 
-#### تست محلی:
+#### Local Testing:
 
 ```bash
-# نصب dependencies
+# Install dependencies
 npm install
 
-# ساخت .env file
+# Create .env file
 echo "GITHUB_TOKEN=your_token" > .env
 echo "GITHUB_REPOSITORY_OWNER=your_username" >> .env
 echo "GITHUB_REPOSITORY=your_repo" >> .env
 
-# اجرا
+# Run
 npm run dev
 ```
 
-#### تست در GitHub Actions:
+#### Testing in GitHub Actions:
 
-1. به Actions tab بروید
-2. workflow را manually trigger کنید
-3. لاگ‌ها را بررسی کنید
-4. README را چک کنید که به‌روزرسانی شده باشد
+1. Go to the Actions tab
+2. Manually trigger the workflow
+3. Check the logs
+4. Verify that the README has been updated
 
-### ❓ مشکلات رایج
+### ❓ Common Issues
 
-**مشکل:** README به‌روزرسانی نمی‌شود
-- ✅ مطمئن شوید markers در README وجود دارند
-- ✅ مطمئن شوید workflow اجرا شده است
-- ✅ لاگ‌های GitHub Actions را بررسی کنید
+**Issue:** README is not updating
+- ✅ Make sure markers exist in README
+- ✅ Make sure the workflow has run
+- ✅ Check GitHub Actions logs
 
-**مشکل:** "No joke issues found"
-- ✅ مطمئن شوید issue با label "joke" وجود دارد
-- ✅ مطمئن شوید issue closed شده است
-- ✅ مطمئن شوید issue از template استفاده کرده است
+**Issue:** "No joke issues found"
+- ✅ Make sure an issue with the "joke" label exists
+- ✅ Make sure the issue is closed
+- ✅ Make sure the issue used the template
 
-**مشکل:** Build fails
-- ✅ مطمئن شوید Node.js version 20+ نصب است
-- ✅ `npm install` را دوباره اجرا کنید
-- ✅ TypeScript errors را بررسی کنید
+**Issue:** Build fails
+- ✅ Make sure Node.js version 20+ is installed
+- ✅ Run `npm install` again
+- ✅ Check TypeScript errors
 
 ### 📚 منابع بیشتر
 
