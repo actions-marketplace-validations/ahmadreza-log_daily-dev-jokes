@@ -20,30 +20,24 @@ export function SelectRandomJoke(Issues: Issue[]): Issue {
 export function FormatJoke(Issue: Issue): string {
   const ParsedJoke = ParseIssueBody(Issue);
   const Author = Issue.user?.login || 'Unknown';
-  const IssueNumber = Issue.number;
-  const IssueUrl = Issue.html_url;
 
-  // Format joke text with blockquote
+  // Format joke text - keep original line breaks, add blockquote to each line
   const FormattedJokeText = ParsedJoke.Joke
     .split('\n')
-    .map(Line => `> ${Line}`)
+    .filter(Line => Line.trim() !== '') // Remove empty lines
+    .map(Line => `> ${Line.trim()}`)
     .join('\n');
 
   // Build the output
-  let Output = `${FormattedJokeText}\n>`;
+  let Output = `${FormattedJokeText}`;
 
   // Add image if available
   if (ParsedJoke.Image) {
-    Output += `\n> \n> ![Joke Image](${ParsedJoke.Image})\n>`;
+    Output += `\n> \n> ![Joke Image](${ParsedJoke.Image})`;
   }
 
-  // Add language if available
-  if (ParsedJoke.Language) {
-    Output += `\n> \n> 🌍 ${ParsedJoke.Language}`;
-  }
-
-  // Add footer with issue link and author
-  Output += `\n> \n> — [Issue #${IssueNumber}](${IssueUrl}) by [@${Author}](https://github.com/${Author})`;
+  // Add footer with author (simple format, no language, no issue link)
+  Output += `\n> \n> — ${Author}`;
 
   return Output;
 }
