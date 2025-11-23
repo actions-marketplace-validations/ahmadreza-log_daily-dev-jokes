@@ -1,0 +1,37 @@
+{
+  "name": "daily-dev-jokes",
+  "version": "1.0.0",
+  "description": "#DevJokes A fun repository for sharing developer jokes and memes! Submit an issue with your joke or meme, and it will be displayed randomly. Perfect for coding breaks and lightening up your GitHub workflow.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run build && node dist/index.js",
+    "update": "npm run build && node dist/index.js",
+    "dev": "ts-node src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahmadreza-log/daily-dev-jokes.git"
+  },
+  "keywords": [
+    "jokes",
+    "developer",
+    "github",
+    "automation"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ahmadreza-log/daily-dev-jokes/issues"
+  },
+  "homepage": "https://github.com/ahmadreza-log/daily-dev-jokes#readme",
+  "dependencies": {
+    "@octokit/rest": "^20.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.3",
+    "ts-node": "^10.9.2"
+  }
+}
