@@ -41,5 +41,6 @@ inputs:
     default: 'README.md'
 runs:
   using: 'node20'
+  pre: 'pre.js'
   main: 'dist/action.js'
 
