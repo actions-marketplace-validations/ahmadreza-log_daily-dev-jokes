@@ -69,6 +69,7 @@ jobs:
         uses: ahmadreza-log/daily-dev-jokes@master
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SOURCE_REPO: "ahmadreza-log/daily-dev-jokes"  # Repository to fetch jokes from
           COMMIT_BY_ME: "True"
           COMMIT_MESSAGE: "🤣 Update daily joke [skip ci]"
           COMMIT_USERNAME: "github-actions[bot]"
@@ -109,6 +110,7 @@ That's it! The action will automatically update your README daily with a random 
 | Input | Description | Required | Default |
 |-------|-------------|----------|---------|
 | `GITHUB_TOKEN` | GitHub token for API access | No* | `secrets.GITHUB_TOKEN` |
+| `SOURCE_REPO` | Source repository to fetch jokes from (format: owner/repo) | No | `ahmadreza-log/daily-dev-jokes` |
 | `COMMIT_BY_ME` | Whether to commit changes automatically | No | `True` |
 | `COMMIT_MESSAGE` | Commit message for the update | No | `🤣 Update daily joke [skip ci]` |
 | `COMMIT_USERNAME` | Username for git commit | No | `github-actions[bot]` |

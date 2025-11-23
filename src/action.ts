@@ -23,19 +23,29 @@ async function Run(): Promise<void> {
     const StartMarker = core.getInput('START_MARKER') || '<!--START_SECTION:dev-jokes-->';
     const EndMarker = core.getInput('END_MARKER') || '<!--END_SECTION:dev-jokes-->';
     const ReadmePath = core.getInput('README_PATH') || 'README.md';
+    const SourceRepo = core.getInput('SOURCE_REPO') || 'ahmadreza-log/daily-dev-jokes';
 
-    // Get repository info from context
-    const RepoOwner = github.context.repo.owner;
-    const RepoName = github.context.repo.repo;
+    // Parse source repository (format: owner/repo)
+    const [SourceRepoOwner, SourceRepoName] = SourceRepo.split('/');
+    if (!SourceRepoOwner || !SourceRepoName) {
+      throw new Error(`Invalid SOURCE_REPO format: ${SourceRepo}. Expected format: owner/repo`);
+    }
+
+    // Get current repository info from context (where README will be updated)
+    const CurrentRepoOwner = github.context.repo.owner;
+    const CurrentRepoName = github.context.repo.repo;
 
     if (!GitHubToken) {
       throw new Error('GITHUB_TOKEN is required! Please provide it as input or secret.');
     }
 
-    // Initialize GitHub service
+    core.info(`📚 Source repository: ${SourceRepoOwner}/${SourceRepoName}`);
+    core.info(`📝 Target repository: ${CurrentRepoOwner}/${CurrentRepoName}\n`);
+
+    // Initialize GitHub service with source repository
     const GitHubServiceInstance = new GitHubService(
-      RepoOwner,
-      RepoName,
+      SourceRepoOwner,
+      SourceRepoName,
       GitHubToken,
       Label
     );

@@ -39,6 +39,10 @@ inputs:
     description: 'Path to README file'
     required: false
     default: 'README.md'
+  SOURCE_REPO:
+    description: 'Source repository to fetch jokes from (format: owner/repo, default: ahmadreza-log/daily-dev-jokes)'
+    required: false
+    default: 'ahmadreza-log/daily-dev-jokes'
 runs:
   using: 'node20'
   pre: 'pre.js'

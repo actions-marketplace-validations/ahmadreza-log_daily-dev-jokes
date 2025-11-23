@@ -55,14 +55,22 @@ async function Run() {
         const StartMarker = core.getInput('START_MARKER') || '<!--START_SECTION:dev-jokes-->';
         const EndMarker = core.getInput('END_MARKER') || '<!--END_SECTION:dev-jokes-->';
         const ReadmePath = core.getInput('README_PATH') || 'README.md';
-        // Get repository info from context
-        const RepoOwner = github.context.repo.owner;
-        const RepoName = github.context.repo.repo;
+        const SourceRepo = core.getInput('SOURCE_REPO') || 'ahmadreza-log/daily-dev-jokes';
+        // Parse source repository (format: owner/repo)
+        const [SourceRepoOwner, SourceRepoName] = SourceRepo.split('/');
+        if (!SourceRepoOwner || !SourceRepoName) {
+            throw new Error(`Invalid SOURCE_REPO format: ${SourceRepo}. Expected format: owner/repo`);
+        }
+        // Get current repository info from context (where README will be updated)
+        const CurrentRepoOwner = github.context.repo.owner;
+        const CurrentRepoName = github.context.repo.repo;
         if (!GitHubToken) {
             throw new Error('GITHUB_TOKEN is required! Please provide it as input or secret.');
         }
-        // Initialize GitHub service
-        const GitHubServiceInstance = new github_service_1.GitHubService(RepoOwner, RepoName, GitHubToken, Label);
+        core.info(`📚 Source repository: ${SourceRepoOwner}/${SourceRepoName}`);
+        core.info(`📝 Target repository: ${CurrentRepoOwner}/${CurrentRepoName}\n`);
+        // Initialize GitHub service with source repository
+        const GitHubServiceInstance = new github_service_1.GitHubService(SourceRepoOwner, SourceRepoName, GitHubToken, Label);
         // Fetch joke issues
         const JokeIssues = await GitHubServiceInstance.FetchJokeIssues();
         // Select random joke
