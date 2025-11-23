@@ -16,8 +16,12 @@ A fun repository for sharing developer jokes and memes! Submit an issue with "jo
 
 1. Go to the [Issues](https://github.com/ahmadreza-log/daily-dev-jokes/issues) page
 2. Click "New Issue"
-3. Add "joke" to your issue title (e.g., "Joke: Why do programmers...")
-4. Write your joke in the issue body
+3. Select the **"🎭 Submit a Joke"** template
+4. Fill in the form:
+   - 🎤 **Your Hilarious Joke**: Write your best developer joke
+   - 🖼️ **Meme Image URL** (optional): Add a meme image URL if you have one
+   - 🌍 **Language**: Select the language of your joke
+   - ✅ **Code of Conduct**: Confirm your joke follows community guidelines
 5. Submit the issue!
 
 Once your issue is closed, it will be eligible to appear in the daily joke section above! 🎉
@@ -26,9 +30,13 @@ Once your issue is closed, it will be eligible to appear in the daily joke secti
 
 This repository uses GitHub Actions to automatically update the README.md every 24 hours with a random joke from closed issues. The script:
 
-1. Fetches all closed issues with "joke" in the title
-2. Randomly selects one
-3. Updates the README.md between the `<!--START_SECTION:dev-jokes-->` markers
+1. Fetches all closed issues with the "joke" label (created using the joke template)
+2. Parses the issue template to extract:
+   - The joke text
+   - Optional meme image URL
+   - Language information
+3. Randomly selects one joke
+4. Updates the README.md between the `<!--START_SECTION:dev-jokes-->` markers with formatted content
 
 ## Setup
 

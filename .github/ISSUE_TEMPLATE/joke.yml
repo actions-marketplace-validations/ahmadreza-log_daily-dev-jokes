@@ -1,0 +1,55 @@
+name        : 🎭 Submit a Joke
+description : 🎪 Got a joke that'll make developers laugh? Share it here! Let's spread some joy (and maybe some pain) in the dev community! 😄
+title       : "[JOKE] "
+labels      : 
+  - "joke"
+body:
+  - type: textarea
+    id: joke
+    attributes:
+      label: 🎤 Your Hilarious Joke
+      description: 💡 Time to shine! Write your best developer joke here. Make us laugh, cry, or question our life choices! 😂
+      placeholder: "Why do programmers prefer dark mode? Because light attracts bugs! 🐛"
+    validations:
+      required: true
+
+  - type: input
+    id: image
+    attributes:
+      label: 🖼️ Meme Image URL
+      description: 🔗 Drop that meme link here! (GitHub, Imgur, or any direct image URL works) Make sure it's accessible! 📎
+      placeholder: "https://example.com/meme.png"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: language
+    attributes:
+      label: 🌍 Language
+      description: 🗣️ What language is your joke in? Help us reach developers worldwide! 🌎
+      options:
+        - 🇺🇸 English
+        - 🇮🇷 Persian/Farsi
+        - 🇪🇸 Spanish
+        - 🇫🇷 French
+        - 🇩🇪 German
+        - 🇮🇹 Italian
+        - 🇵🇹 Portuguese
+        - 🇷🇺 Russian
+        - 🇯🇵 Japanese
+        - 🇰🇷 Korean
+        - 🇨🇳 Chinese
+        - 🇹🇷 Turkish
+        - 🌐 Other
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: ✅ Code of Conduct
+      description: 🤝 By submitting, you agree to keep it fun, friendly, and appropriate. Let's keep this community awesome! ✨
+      options:
+        - label: ✅ I confirm this joke is appropriate and follows community guidelines (and won't make anyone cry... too much 😅)
+          required: true
+

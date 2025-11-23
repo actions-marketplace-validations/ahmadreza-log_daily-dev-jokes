@@ -1,28 +1,50 @@
 import { Issue } from '../types';
+import { ParsedJoke } from '../types';
+import { ParseIssueBody } from './parser.util';
 
 /**
  * Selects a random joke from the list of issues
  */
-export function selectRandomJoke(issues: Issue[]): Issue {
-  if (issues.length === 0) {
+export function SelectRandomJoke(Issues: Issue[]): Issue {
+  if (Issues.length === 0) {
     throw new Error('Cannot select from empty issues array');
   }
   
-  const randomIndex = Math.floor(Math.random() * issues.length);
-  return issues[randomIndex];
+  const RandomIndex = Math.floor(Math.random() * Issues.length);
+  return Issues[RandomIndex];
 }
 
 /**
  * Formats the joke for display in README
  */
-export function formatJoke(issue: Issue): string {
-  const jokeText = issue.body || issue.title;
-  const author = issue.user?.login || 'Unknown';
-  const issueNumber = issue.number;
-  const issueUrl = issue.html_url;
+export function FormatJoke(Issue: Issue): string {
+  const ParsedJoke = ParseIssueBody(Issue);
+  const Author = Issue.user?.login || 'Unknown';
+  const IssueNumber = Issue.number;
+  const IssueUrl = Issue.html_url;
 
-  return `> ${jokeText.replace(/\n/g, '\n> ')}
-> 
-> — [Issue #${issueNumber}](${issueUrl}) by [@${author}](https://github.com/${author})`;
+  // Format joke text with blockquote
+  const FormattedJokeText = ParsedJoke.Joke
+    .split('\n')
+    .map(Line => `> ${Line}`)
+    .join('\n');
+
+  // Build the output
+  let Output = `${FormattedJokeText}\n>`;
+
+  // Add image if available
+  if (ParsedJoke.Image) {
+    Output += `\n> \n> ![Joke Image](${ParsedJoke.Image})\n>`;
+  }
+
+  // Add language if available
+  if (ParsedJoke.Language) {
+    Output += `\n> \n> 🌍 ${ParsedJoke.Language}`;
+  }
+
+  // Add footer with issue link and author
+  Output += `\n> \n> — [Issue #${IssueNumber}](${IssueUrl}) by [@${Author}](https://github.com/${Author})`;
+
+  return Output;
 }
 

@@ -7,16 +7,16 @@ const END_MARKER = '<!--END_SECTION:dev-jokes-->';
 /**
  * Updates README.md with the new joke content
  */
-export function updateReadme(jokeContent: string, readmePath?: string): void {
-  const targetPath = readmePath || path.join(process.cwd(), 'README.md');
+export function UpdateReadme(JokeContent: string, ReadmePath?: string): void {
+  const TargetPath = ReadmePath || path.join(process.cwd(), 'README.md');
   
   // Read current README
-  let readmeContent = '';
-  if (fs.existsSync(targetPath)) {
-    readmeContent = fs.readFileSync(targetPath, 'utf8');
+  let ReadmeContent = '';
+  if (fs.existsSync(TargetPath)) {
+    ReadmeContent = fs.readFileSync(TargetPath, 'utf8');
   } else {
     // Create a basic README if it doesn't exist
-    readmeContent = `# Daily Dev Jokes
+    ReadmeContent = `# Daily Dev Jokes
 
 ${START_MARKER}
 ${END_MARKER}
@@ -28,23 +28,23 @@ Submit an issue with "joke" in the title and your joke in the body!
   }
 
   // Check for markers
-  const startIndex = readmeContent.indexOf(START_MARKER);
-  const endIndex = readmeContent.indexOf(END_MARKER);
+  const StartIndex = ReadmeContent.indexOf(START_MARKER);
+  const EndIndex = ReadmeContent.indexOf(END_MARKER);
 
-  if (startIndex === -1 || endIndex === -1) {
+  if (StartIndex === -1 || EndIndex === -1) {
     throw new Error(
       `README.md must contain both markers:\n${START_MARKER}\n${END_MARKER}`
     );
   }
 
   // Replace the content between markers
-  const before = readmeContent.substring(0, startIndex + START_MARKER.length);
-  const after = readmeContent.substring(endIndex);
+  const Before = ReadmeContent.substring(0, StartIndex + START_MARKER.length);
+  const After = ReadmeContent.substring(EndIndex);
 
-  const newReadmeContent = `${before}\n\n${jokeContent}\n\n${after}`;
+  const NewReadmeContent = `${Before}\n\n${JokeContent}\n\n${After}`;
 
   // Write updated README
-  fs.writeFileSync(targetPath, newReadmeContent, 'utf8');
+  fs.writeFileSync(TargetPath, NewReadmeContent, 'utf8');
   console.log('✅ README.md updated successfully!');
 }
 

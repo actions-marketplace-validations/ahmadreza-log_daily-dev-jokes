@@ -9,8 +9,17 @@ export type Issue = Awaited<ReturnType<Octokit['rest']['issues']['listForRepo']>
  * Configuration interface
  */
 export interface Config {
-  repoOwner: string;
-  repoName: string;
-  githubToken: string;
+  RepoOwner: string;
+  RepoName: string;
+  GitHubToken: string;
+}
+
+/**
+ * Parsed joke data from issue template
+ */
+export interface ParsedJoke {
+  Joke: string;
+  Image?: string;
+  Language?: string;
 }
 

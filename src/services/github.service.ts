@@ -5,49 +5,47 @@ import { Issue } from '../types';
  * GitHub service for interacting with GitHub API
  */
 export class GitHubService {
-  private octokit: Octokit;
-  private repoOwner: string;
-  private repoName: string;
+  private Octokit: Octokit;
+  private RepoOwner: string;
+  private RepoName: string;
 
-  constructor(repoOwner: string, repoName: string, githubToken: string) {
-    this.octokit = new Octokit({
-      auth: githubToken,
+  constructor(RepoOwner: string, RepoName: string, GitHubToken: string) {
+    this.Octokit = new Octokit({
+      auth: GitHubToken,
     });
-    this.repoOwner = repoOwner;
-    this.repoName = repoName;
+    this.RepoOwner = RepoOwner;
+    this.RepoName = RepoName;
   }
 
   /**
-   * Fetches all closed issues with "joke" in the title
+   * Fetches all closed issues with "joke" label
    */
-  async fetchJokeIssues(): Promise<Issue[]> {
+  async FetchJokeIssues(): Promise<Issue[]> {
     try {
-      console.log(`Fetching closed issues from ${this.repoOwner}/${this.repoName}...`);
+      console.log(`Fetching closed issues from ${this.RepoOwner}/${this.RepoName}...`);
       
-      const { data: issues } = await this.octokit.rest.issues.listForRepo({
-        owner: this.repoOwner,
-        repo: this.repoName,
+      const { data: Issues } = await this.Octokit.rest.issues.listForRepo({
+        owner: this.RepoOwner,
+        repo: this.RepoName,
         state: 'closed',
         per_page: 100, // GitHub API max is 100 per page
+        labels: 'joke', // Filter by "joke" label
       });
 
-      // Filter issues that have "joke" in the title (case-insensitive)
-      const jokeIssues = issues.filter(issue => 
-        issue.title.toLowerCase().includes('joke') && 
-        !issue.pull_request // Exclude pull requests
-      );
+      // Filter out pull requests (issues only)
+      const JokeIssues = Issues.filter(Issue => !Issue.pull_request);
 
-      console.log(`Found ${jokeIssues.length} joke issues`);
+      console.log(`Found ${JokeIssues.length} joke issues`);
 
-      if (jokeIssues.length === 0) {
-        throw new Error('No joke issues found! Please create some issues with "joke" in the title.');
+      if (JokeIssues.length === 0) {
+        throw new Error('No joke issues found! Please create some issues using the joke template.');
       }
 
-      return jokeIssues;
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-      console.error('Error fetching issues:', errorMessage);
-      throw error;
+      return JokeIssues;
+    } catch (CaughtError) {
+      const ErrorMessage = CaughtError instanceof Error ? CaughtError.message : 'Unknown error';
+      console.error('Error fetching issues:', ErrorMessage);
+      throw CaughtError;
     }
   }
 }

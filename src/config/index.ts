@@ -3,23 +3,23 @@ import { Config } from '../types';
 /**
  * Gets configuration from environment variables
  */
-export function getConfig(): Config {
-  const githubToken = process.env.GITHUB_TOKEN;
+export function GetConfig(): Config {
+  const GitHubToken = process.env.GITHUB_TOKEN;
   
-  if (!githubToken) {
+  if (!GitHubToken) {
     throw new Error(
       'GITHUB_TOKEN environment variable is required!\n' +
       'Please set it in your GitHub Actions secrets or .env file.'
     );
   }
 
-  const repoOwner = process.env.GITHUB_REPOSITORY_OWNER || 'ahmadreza-log';
-  const repoName = process.env.GITHUB_REPOSITORY?.split('/')[1] || 'daily-dev-jokes';
+  const RepoOwner = process.env.GITHUB_REPOSITORY_OWNER || 'ahmadreza-log';
+  const RepoName = process.env.GITHUB_REPOSITORY?.split('/')[1] || 'daily-dev-jokes';
 
   return {
-    repoOwner,
-    repoName,
-    githubToken,
+    RepoOwner,
+    RepoName,
+    GitHubToken,
   };
 }
 
