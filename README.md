@@ -5,11 +5,13 @@ A fun repository for sharing developer jokes and memes! Submit an issue with "jo
 ## Today's Joke
 
 <!--START_SECTION:dev-jokes-->
-> Why do programmers prefer dark mode?
+
+> Question: Why don't keyboards sleep?
+>
+> Answer: Because they have two shifts.
 > 
-> Because light attracts bugs! 🐛
-> 
-> — [Issue #1](https://github.com/ahmadreza-log/daily-dev-jokes/issues/1) by [@ahmadreza-log](https://github.com/ahmadreza-log)
+> — ahmadreza-log
+
 <!--END_SECTION:dev-jokes-->
 
 ## How to Contribute
