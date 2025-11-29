@@ -6,9 +6,12 @@ A fun repository for sharing developer jokes and memes! Submit an issue with "jo
 
 <!--START_SECTION:dev-jokes-->
 
-> Q: Who won the debate for the best name for loop variable?
+> Question: Favourite actor of a JavaScript Developer is?
 >
-> A: i won.
+> Answer: JSON Statham
+
+![Joke Image](https://raw.githubusercontent.com/shrutikapoor08/devjoke/master/images/E12OmzjXoAAzVvh.jpeg)
+
 
 > — ahmadreza-log
 
