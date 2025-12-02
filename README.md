@@ -70,6 +70,13 @@ Add these markers to your `README.md` file:
 ## Today's Joke
 
 <!--START_SECTION:dev-jokes-->
+
+> Question: Why did the private classes break up?
+>
+> Answer: Because they never saw each other.
+
+> — ahmadreza-log
+
 <!--END_SECTION:dev-jokes-->
 ```
 
